@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>aural PWA</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="/aural/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/aural/icon-512x512.png">
+    <link rel="apple-touch-icon" href="/aural/icon-192x192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="aural Progressive Web App">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000000;
+        }
+        iframe {
+            width: 100lvw;
+            height: 100lvh;
+            border: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        @supports(padding: max(0px)) {
+            body, iframe {
+                padding-top: env(safe-area-inset-top);
+                height: calc(100lvh - env(safe-area-inset-top));
+            }
+        }
+    </style>
+</head>
+<body>
+    <iframe id="framerContent" src="https://auralsound.framer.website" allowfullscreen allow="geolocation; camera; microphone; storage-access"></iframe>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/aural/service-worker.js');
+            });
+        }
+    </script>
+</body>
+</html>
